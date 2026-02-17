@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, Save, Plus, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, Save, Plus, Trash2, LogOut } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,6 +13,7 @@ import { getProfileData, saveProfileData, ProfileData, defaultProfileData } from
 const Admin = () => {
   const [data, setData] = useState<ProfileData>(getProfileData());
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const update = (field: keyof ProfileData, value: any) => setData((d) => ({ ...d, [field]: value }));
 
@@ -26,6 +28,11 @@ const Admin = () => {
     toast({ title: "Reset", description: "Profile reset to defaults." });
   };
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/");
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="bg-navbar px-6 py-4 flex items-center justify-between sticky top-0 z-50">
@@ -34,6 +41,7 @@ const Admin = () => {
           <h1 className="text-navbar-foreground font-bold text-lg">Admin Panel</h1>
         </div>
         <div className="flex gap-2">
+          <Button variant="ghost" size="sm" onClick={handleLogout} className="text-navbar-foreground/70 hover:text-navbar-foreground gap-1"><LogOut size={14} /> Logout</Button>
           <Button variant="outline" size="sm" onClick={handleReset} className="text-xs">Reset</Button>
           <Button size="sm" onClick={handleSave} className="gap-1"><Save size={14} /> Save</Button>
         </div>
