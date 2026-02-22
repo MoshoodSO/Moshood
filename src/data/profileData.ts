@@ -13,6 +13,7 @@ export interface ProfileData {
   projects: Project[];
   recognitions: Recognition[];
   teaching: TeachingRole[];
+  certificates: Certificate[];
   techStack: string[];
   stats: { label: string; value: string }[];
   quote: string;
@@ -45,6 +46,13 @@ export interface TeachingRole {
   description: string;
   period: string;
   emoji: string;
+}
+
+export interface Certificate {
+  title: string;
+  issuer: string;
+  year: string;
+  url: string;
 }
 
 export const defaultProfileData: ProfileData = {
@@ -119,6 +127,16 @@ export const defaultProfileData: ProfileData = {
     { title: "Graduate Intern – Codeveda", description: "Working on data analysis and software development tasks.", period: "Jan 2026–Present", emoji: "💻" },
     { title: "Assistant Lecturer (Statistics)", description: "Taught undergraduate courses in statistics and mathematics at Ogun State Institute of Technology.", period: "2023–2024", emoji: "🎓" },
     { title: "Da-Google Mathematics Competition", description: "Designed and led a national mathematics competition, mentoring secondary school students.", period: "2021–Present", emoji: "🧠" },
+  ],
+  certificates: [
+    { title: "AI Projects with Python: Generative AI", issuer: "LinkedIn Learning", year: "2025", url: "https://www.linkedin.com/learning/certificates" },
+    { title: "TensorFlow for AI Development", issuer: "LinkedIn Learning", year: "2025", url: "https://www.linkedin.com/learning/certificates" },
+    { title: "Natural Language Processing with Python", issuer: "LinkedIn Learning", year: "2025", url: "https://www.linkedin.com/learning/certificates" },
+    { title: "Data Visualization: Best Practices", issuer: "LinkedIn Learning", year: "2025", url: "https://www.linkedin.com/learning/certificates" },
+    { title: "NLTK for Text Processing", issuer: "LinkedIn Learning", year: "2025", url: "https://www.linkedin.com/learning/certificates" },
+    { title: "SPARK Academy – Medical Imaging & ML", issuer: "SPARK Academy", year: "2025", url: "" },
+    { title: "Mastercard Foundation Scholarship", issuer: "AIMS Ghana", year: "2024", url: "" },
+    { title: "Data Science Professional Certificate", issuer: "DataCamp", year: "2024", url: "https://www.datacamp.com/portfolio/moshood-8efbc2c2-a9ba-4bb7-a536-0af17a8713fd" },
   ],
   techStack: ["Python", "R", "SQL", "Julia", "LaTeX", "TensorFlow", "scikit-learn", "Pandas", "NumPy", "HuggingFace", "NLTK", "Gradio", "Git", "Jupyter"],
   stats: [
