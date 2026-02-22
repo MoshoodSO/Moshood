@@ -49,11 +49,12 @@ const Admin = () => {
 
       <div className="max-w-4xl mx-auto p-6">
         <Tabs defaultValue="general">
-          <TabsList className="grid grid-cols-5 mb-6">
+          <TabsList className="grid grid-cols-6 mb-6">
             <TabsTrigger value="general">General</TabsTrigger>
             <TabsTrigger value="skills">Skills</TabsTrigger>
             <TabsTrigger value="projects">Projects</TabsTrigger>
             <TabsTrigger value="recognition">Recognition</TabsTrigger>
+            <TabsTrigger value="certificates">Certificates</TabsTrigger>
             <TabsTrigger value="teaching">Teaching</TabsTrigger>
           </TabsList>
 
@@ -212,6 +213,32 @@ const Admin = () => {
             ))}
             <Button variant="outline" onClick={() => update("recognitions", [...data.recognitions, { title: "", description: "", year: "", emoji: "🏆" }])} className="gap-1">
               <Plus size={14} /> Add Recognition
+            </Button>
+          </TabsContent>
+
+          <TabsContent value="certificates" className="space-y-4">
+            {data.certificates.map((c, i) => (
+              <Card key={i} className="p-6 space-y-3">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-bold text-sm text-card-foreground">Certificate {i + 1}</h3>
+                  <Button variant="ghost" size="icon" onClick={() => update("certificates", data.certificates.filter((_, j) => j !== i))}><Trash2 size={14} /></Button>
+                </div>
+                <Field label="Title" value={c.title} onChange={(v) => {
+                  const cs = [...data.certificates]; cs[i] = { ...cs[i], title: v }; update("certificates", cs);
+                }} />
+                <Field label="Issuer" value={c.issuer} onChange={(v) => {
+                  const cs = [...data.certificates]; cs[i] = { ...cs[i], issuer: v }; update("certificates", cs);
+                }} />
+                <Field label="Year" value={c.year} onChange={(v) => {
+                  const cs = [...data.certificates]; cs[i] = { ...cs[i], year: v }; update("certificates", cs);
+                }} />
+                <Field label="URL" value={c.url} onChange={(v) => {
+                  const cs = [...data.certificates]; cs[i] = { ...cs[i], url: v }; update("certificates", cs);
+                }} />
+              </Card>
+            ))}
+            <Button variant="outline" onClick={() => update("certificates", [...data.certificates, { title: "", issuer: "", year: "", url: "" }])} className="gap-1">
+              <Plus size={14} /> Add Certificate
             </Button>
           </TabsContent>
 
