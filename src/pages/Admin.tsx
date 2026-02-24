@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { getProfileData, saveProfileData, ProfileData, defaultProfileData } from "@/data/profileData";
+import ImageUpload from "@/components/ImageUpload";
 
 const Admin = () => {
   const [data, setData] = useState<ProfileData>(getProfileData());
@@ -73,7 +74,7 @@ const Admin = () => {
               <Field label="Twitter" value={data.twitter} onChange={(v) => update("twitter", v)} />
               <Field label="Kaggle" value={data.kaggle} onChange={(v) => update("kaggle", v)} />
               <Field label="DataCamp" value={data.datacamp} onChange={(v) => update("datacamp", v)} />
-              <Field label="Profile Image URL" value={data.profileImage} onChange={(v) => update("profileImage", v)} />
+              <ImageUpload label="Profile Image" value={data.profileImage} onChange={(v) => update("profileImage", v)} folder="profile" />
               <Field label="Quote" value={data.quote} onChange={(v) => update("quote", v)} />
             </Card>
 
@@ -165,9 +166,9 @@ const Admin = () => {
                 <Field label="Title" value={project.title} onChange={(v) => {
                   const p = [...data.projects]; p[i] = { ...p[i], title: v }; update("projects", p);
                 }} />
-                <Field label="Emoji" value={project.emoji} onChange={(v) => {
+                <ImageUpload label="Project Image/GIF" value={project.emoji} onChange={(v) => {
                   const p = [...data.projects]; p[i] = { ...p[i], emoji: v }; update("projects", p);
-                }} />
+                }} folder={`projects/${i}`} />
                 <div>
                   <label className="text-sm font-medium text-foreground">Description</label>
                   <Textarea value={project.description} onChange={(e) => {
