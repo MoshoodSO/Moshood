@@ -19,9 +19,15 @@ const ProjectsSection = ({ projects }: { projects: Project[] }) => (
             transition={{ delay: i * 0.1 }}
             className="bg-card rounded-xl overflow-hidden shadow-sm border border-border hover:shadow-lg transition-all group"
           >
-            <div className="hero-gradient p-6 flex items-center justify-center text-4xl h-32">
-              {project.emoji}
-            </div>
+            {project.emoji && (project.emoji.startsWith("http") || project.emoji.startsWith("blob")) ? (
+              <div className="h-32 overflow-hidden">
+                <img src={project.emoji} alt={project.title} className="w-full h-full object-cover" />
+              </div>
+            ) : (
+              <div className="hero-gradient p-6 flex items-center justify-center text-4xl h-32">
+                {project.emoji}
+              </div>
+            )}
             <div className="p-6">
               <h3 className="font-bold text-lg mb-2 text-card-foreground">{project.title}</h3>
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{project.description}</p>
