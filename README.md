@@ -39,8 +39,3 @@ Ideas are treated like plants — they start small, grow over time, and sometime
 - 🏷 Organized with tags and categories
 - 🔎 Easy navigation and browsing
 
-
-
-```bash
-git clone https://github.com/<your-username>/my-digital-garden.git
-cd my-digital-garden
