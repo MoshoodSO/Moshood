@@ -218,6 +218,7 @@ const Admin = () => {
           </TabsContent>
 
           <TabsContent value="certificates" className="space-y-4">
+            <h2 className="font-bold text-lg text-card-foreground">Certificates</h2>
             {data.certificates.map((c, i) => (
               <Card key={i} className="p-6 space-y-3">
                 <div className="flex justify-between items-center">
@@ -233,14 +234,44 @@ const Admin = () => {
                 <Field label="Year" value={c.year} onChange={(v) => {
                   const cs = [...data.certificates]; cs[i] = { ...cs[i], year: v }; update("certificates", cs);
                 }} />
+                <Field label="Category (e.g. Data Science, Educational, Generative AI & Prompt Engineering)" value={c.category || ""} onChange={(v) => {
+                  const cs = [...data.certificates]; cs[i] = { ...cs[i], category: v }; update("certificates", cs);
+                }} />
                 <Field label="URL" value={c.url} onChange={(v) => {
                   const cs = [...data.certificates]; cs[i] = { ...cs[i], url: v }; update("certificates", cs);
                 }} />
               </Card>
             ))}
-            <Button variant="outline" onClick={() => update("certificates", [...data.certificates, { title: "", issuer: "", year: "", url: "" }])} className="gap-1">
+            <Button variant="outline" onClick={() => update("certificates", [...data.certificates, { title: "", issuer: "", year: "", url: "", category: "" }])} className="gap-1">
               <Plus size={14} /> Add Certificate
             </Button>
+
+            <div className="border-t border-border pt-6 mt-6">
+              <h2 className="font-bold text-lg text-card-foreground mb-4">Badges</h2>
+              {(data.badges || []).map((b, i) => (
+                <Card key={i} className="p-6 space-y-3 mb-4">
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-bold text-sm text-card-foreground">Badge {i + 1}</h3>
+                    <Button variant="ghost" size="icon" onClick={() => update("badges", data.badges.filter((_, j) => j !== i))}><Trash2 size={14} /></Button>
+                  </div>
+                  <Field label="Title" value={b.title} onChange={(v) => {
+                    const bs = [...data.badges]; bs[i] = { ...bs[i], title: v }; update("badges", bs);
+                  }} />
+                  <Field label="Issuer" value={b.issuer} onChange={(v) => {
+                    const bs = [...data.badges]; bs[i] = { ...bs[i], issuer: v }; update("badges", bs);
+                  }} />
+                  <ImageUpload label="Badge Image" value={b.imageUrl} onChange={(v) => {
+                    const bs = [...data.badges]; bs[i] = { ...bs[i], imageUrl: v }; update("badges", bs);
+                  }} folder={`badges/${i}`} />
+                  <Field label="URL" value={b.url} onChange={(v) => {
+                    const bs = [...data.badges]; bs[i] = { ...bs[i], url: v }; update("badges", bs);
+                  }} />
+                </Card>
+              ))}
+              <Button variant="outline" onClick={() => update("badges", [...(data.badges || []), { title: "", issuer: "", imageUrl: "", url: "" }])} className="gap-1">
+                <Plus size={14} /> Add Badge
+              </Button>
+            </div>
           </TabsContent>
 
           <TabsContent value="teaching" className="space-y-4">
