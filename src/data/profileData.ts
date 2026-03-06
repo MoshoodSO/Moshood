@@ -14,6 +14,7 @@ export interface ProfileData {
   recognitions: Recognition[];
   teaching: TeachingRole[];
   certificates: Certificate[];
+  badges: BadgeItem[];
   techStack: string[];
   stats: { label: string; value: string }[];
   quote: string;
@@ -52,6 +53,14 @@ export interface Certificate {
   title: string;
   issuer: string;
   year: string;
+  url: string;
+  category: string;
+}
+
+export interface BadgeItem {
+  title: string;
+  issuer: string;
+  imageUrl: string;
   url: string;
 }
 
