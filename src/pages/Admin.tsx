@@ -166,9 +166,12 @@ const Admin = () => {
                 <Field label="Title" value={project.title} onChange={(v) => {
                   const p = [...data.projects]; p[i] = { ...p[i], title: v }; update("projects", p);
                 }} />
-                <ImageUpload label="Project Image/GIF" value={project.emoji} onChange={(v) => {
+                <ImageUpload label="Project Image/GIF (Upload)" value={project.emoji} onChange={(v) => {
                   const p = [...data.projects]; p[i] = { ...p[i], emoji: v }; update("projects", p);
                 }} folder={`projects/${i}`} />
+                <Field label="Or paste Image/GIF URL" value={project.emoji.startsWith("http") ? project.emoji : ""} onChange={(v) => {
+                  const p = [...data.projects]; p[i] = { ...p[i], emoji: v }; update("projects", p);
+                }} />
                 <div>
                   <label className="text-sm font-medium text-foreground">Description</label>
                   <Textarea value={project.description} onChange={(e) => {
