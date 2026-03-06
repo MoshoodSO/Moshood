@@ -1,10 +1,18 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Award } from "lucide-react";
+import { ExternalLink, Award, ShieldCheck } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import { getProfileData } from "@/data/profileData";
 
 const CertificatesPage = () => {
   const data = getProfileData();
+
+  // Group certificates by category
+  const categories = data.certificates.reduce<Record<string, typeof data.certificates>>((acc, cert) => {
+    const cat = cert.category || "Other";
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(cert);
+    return acc;
+  }, {});
 
   return (
     <div className="min-h-screen bg-background">
@@ -18,33 +26,87 @@ const CertificatesPage = () => {
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
               Professional certifications and completed training programs
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {data.certificates.map((cert, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+
+            {Object.entries(categories).map(([category, certs], catIdx) => (
+              <div key={category} className="mb-12">
+                <motion.h3
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.06 }}
-                  className="bg-card rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow"
+                  className="text-xl font-bold text-foreground mb-6 flex items-center gap-2"
                 >
-                  <Award size={28} className="text-primary mb-3" />
-                  <h3 className="font-bold text-sm text-card-foreground mb-1">{cert.title}</h3>
-                  <p className="text-xs text-muted-foreground mb-1">{cert.issuer}</p>
-                  <p className="text-xs text-muted-foreground mb-3">{cert.year}</p>
-                  {cert.url && (
-                    <a
-                      href={cert.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:opacity-80 transition"
+                  <Award size={22} className="text-primary" />
+                  {category}
+                </motion.h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {certs.map((cert, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.06 }}
+                      className="bg-card rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-shadow"
                     >
-                      <ExternalLink size={12} /> View Certificate
-                    </a>
-                  )}
-                </motion.div>
-              ))}
-            </div>
+                      <h4 className="font-bold text-sm text-card-foreground mb-1">{cert.title}</h4>
+                      <p className="text-xs text-muted-foreground mb-1">{cert.issuer}</p>
+                      <p className="text-xs text-muted-foreground mb-3">{cert.year}</p>
+                      {cert.url && (
+                        <a
+                          href={cert.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:opacity-80 transition"
+                        >
+                          <ExternalLink size={12} /> View Certificate
+                        </a>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            ))}
+
+            {/* Badges Section */}
+            {data.badges && data.badges.length > 0 && (
+              <div className="mt-16">
+                <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4 text-foreground">
+                  Badges
+                </h2>
+                <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+                  Digital badges earned from various platforms and programs
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                  {data.badges.map((badge, i) => (
+                    <motion.a
+                      key={i}
+                      href={badge.url || "#"}
+                      target={badge.url ? "_blank" : undefined}
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.05 }}
+                      className="flex flex-col items-center gap-3 bg-card rounded-xl p-4 border border-border shadow-sm hover:shadow-md transition-all hover:scale-105 cursor-pointer"
+                    >
+                      {badge.imageUrl ? (
+                        <img
+                          src={badge.imageUrl}
+                          alt={badge.title}
+                          className="w-20 h-20 object-contain rounded-lg"
+                        />
+                      ) : (
+                        <ShieldCheck size={40} className="text-primary" />
+                      )}
+                      <div className="text-center">
+                        <p className="text-xs font-bold text-card-foreground leading-tight">{badge.title}</p>
+                        <p className="text-[10px] text-muted-foreground mt-1">{badge.issuer}</p>
+                      </div>
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
       </div>
