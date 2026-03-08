@@ -40,21 +40,6 @@ Depending on the project folders, this repository may include work with:
 
 ---
 
-## 📂 Project Structure
-
-```
-Moshood/
-│
-├── projects/        # Sample projects and experiments
-├── assets/          # Images, media, or resources
-├── docs/            # Documentation files
-└── README.md        # Project documentation
-```
-
-*(Structure may vary depending on repository content.)*
-
----
-
 ## ⚙️ Installation
 
 Clone the repository:
