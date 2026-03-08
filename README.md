@@ -1,4 +1,4 @@
-##  My Personal Porfolio
+## 👨‍💼 My Personal Porfolio
 
 A personal repository showcasing projects, experiments, and learning progress in software development. This repository serves as a hub for code samples, practice projects, and useful resources created during my development journey.
 
