@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import logo from "@/assets/MoshLogo.png";
 
 interface NavbarProps {
   name: string;
@@ -22,7 +23,8 @@ const Navbar = ({ name }: NavbarProps) => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-navbar">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link to="/" className="text-navbar-foreground font-bold text-lg tracking-tight">
+        <Link to="/" className="flex items-center gap-2 text-navbar-foreground font-bold text-lg tracking-tight">
+          <img src={logo} alt="Logo" className="h-8 w-auto" />
           {name.split(" ")[0]}
         </Link>
         <div className="hidden md:flex items-center gap-8">
