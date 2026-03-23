@@ -27,6 +27,7 @@ const Index = () => {
       <RecognitionsSection data={data} />
       <TeachingSection teaching={data.teaching} techStack={data.techStack} />
       <ContactSection data={data} />
+      <Footer />
     </div>
   );
 };
