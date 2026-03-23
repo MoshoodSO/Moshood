@@ -32,9 +32,6 @@ const ContactSection = ({ data }: { data: ProfileData }) => (
         </div>
       </motion.div>
     </div>
-    <div className="text-center text-xs text-muted-foreground mt-16 border-t border-border pt-8">
-      © {new Date().getFullYear()} {data.name}. All rights reserved.
-    </div>
   </section>
 );
 
