@@ -6,6 +6,7 @@ import ProjectsSection from "@/components/ProjectsSection";
 import RecognitionsSection from "@/components/RecognitionsSection";
 import TeachingSection from "@/components/TeachingSection";
 import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
 import { getProfileData, ProfileData } from "@/data/profileData";
 
 const Index = () => {
