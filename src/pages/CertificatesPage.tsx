@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Award, ShieldCheck } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import PageBanner from "@/components/PageBanner";
+import Footer from "@/components/Footer";
 import { getProfileData } from "@/data/profileData";
 
 const CertificatesPage = () => {
   const data = getProfileData();
 
-  // Group certificates by category
   const categories = data.certificates.reduce<Record<string, typeof data.certificates>>((acc, cert) => {
     const cat = cert.category || "Other";
     if (!acc[cat]) acc[cat] = [];
@@ -15,19 +16,14 @@ const CertificatesPage = () => {
   }, {});
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navbar name={data.name} />
-      <div className="pt-20">
-        <section className="py-20 px-6">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4 text-foreground">
-              Licenses & Certifications
-            </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Professional certifications and completed training programs
-            </p>
+      <PageBanner title="Licenses & Certifications" subtitle="Professional certifications and completed training programs" />
 
-            {Object.entries(categories).map(([category, certs], catIdx) => (
+      <div className="flex-1">
+        <section className="py-16 px-6">
+          <div className="max-w-7xl mx-auto">
+            {Object.entries(categories).map(([category, certs]) => (
               <div key={category} className="mb-12">
                 <motion.h3
                   initial={{ opacity: 0, x: -20 }}
@@ -67,13 +63,12 @@ const CertificatesPage = () => {
               </div>
             ))}
 
-            {/* Badges Section */}
             {data.badges && data.badges.length > 0 && (
               <div className="mt-16">
-                <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4 text-foreground">
+                <h2 className="text-2xl font-extrabold text-center mb-4 text-foreground">
                   Badges
                 </h2>
-                <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+                <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
                   Digital badges earned from various platforms and programs
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
@@ -90,11 +85,7 @@ const CertificatesPage = () => {
                       className="flex flex-col items-center gap-3 bg-card rounded-xl p-4 border border-border shadow-sm hover:shadow-md transition-all hover:scale-105 cursor-pointer"
                     >
                       {badge.imageUrl ? (
-                        <img
-                          src={badge.imageUrl}
-                          alt={badge.title}
-                          className="w-20 h-20 object-contain rounded-lg"
-                        />
+                        <img src={badge.imageUrl} alt={badge.title} className="w-20 h-20 object-contain rounded-lg" />
                       ) : (
                         <ShieldCheck size={40} className="text-primary" />
                       )}
@@ -110,6 +101,7 @@ const CertificatesPage = () => {
           </div>
         </section>
       </div>
+      <Footer />
     </div>
   );
 };
