@@ -15,6 +15,11 @@ const CertificatesPage = () => {
     return acc;
   }, {});
 
+  // Sort categories alphabetically and certs by year descending
+  const sortedCategories = Object.entries(categories)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([cat, certs]) => [cat, [...certs].sort((a, b) => b.year.localeCompare(a.year))] as const);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar name={data.name} />
