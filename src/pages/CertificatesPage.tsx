@@ -28,7 +28,7 @@ const CertificatesPage = () => {
       <div className="flex-1">
         <section className="py-16 px-6">
           <div className="max-w-7xl mx-auto">
-            {Object.entries(categories).map(([category, certs]) => (
+            {sortedCategories.map(([category, certs]) => (
               <div key={category} className="mb-12">
                 <motion.h3
                   initial={{ opacity: 0, x: -20 }}
