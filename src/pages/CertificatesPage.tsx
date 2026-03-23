@@ -15,6 +15,11 @@ const CertificatesPage = () => {
     return acc;
   }, {});
 
+  // Sort categories alphabetically and certs by year descending
+  const sortedCategories = Object.entries(categories)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([cat, certs]) => [cat, [...certs].sort((a, b) => b.year.localeCompare(a.year))] as const);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar name={data.name} />
@@ -23,7 +28,7 @@ const CertificatesPage = () => {
       <div className="flex-1">
         <section className="py-16 px-6">
           <div className="max-w-7xl mx-auto">
-            {Object.entries(categories).map(([category, certs]) => (
+            {sortedCategories.map(([category, certs]) => (
               <div key={category} className="mb-12">
                 <motion.h3
                   initial={{ opacity: 0, x: -20 }}
