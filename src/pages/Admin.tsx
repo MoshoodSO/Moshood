@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Save, Plus, Trash2, LogOut } from "lucide-react";
+import { ArrowLeft, Save, Plus, Trash2, LogOut, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,31 +8,60 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { getProfileData, saveProfileData, ProfileData, defaultProfileData } from "@/data/profileData";
+import { ProfileData, defaultProfileData } from "@/data/profileData";
+import { useProfileData, saveProfileToDb } from "@/hooks/useProfileData";
 import ImageUpload from "@/components/ImageUpload";
 
 const Admin = () => {
-  const [data, setData] = useState<ProfileData>(getProfileData());
+  const { data: fetchedData, loading } = useProfileData();
+  const [data, setData] = useState<ProfileData>(defaultProfileData);
+  const [saving, setSaving] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!loading) setData(fetchedData);
+  }, [loading, fetchedData]);
+
   const update = (field: keyof ProfileData, value: any) => setData((d) => ({ ...d, [field]: value }));
 
-  const handleSave = () => {
-    saveProfileData(data);
-    toast({ title: "Saved!", description: "Profile updated successfully." });
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      await saveProfileToDb(data);
+      toast({ title: "Saved!", description: "Profile updated successfully and is now live." });
+    } catch (err: any) {
+      toast({ title: "Error", description: err.message || "Failed to save.", variant: "destructive" });
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const handleReset = () => {
-    setData(defaultProfileData);
-    saveProfileData(defaultProfileData);
-    toast({ title: "Reset", description: "Profile reset to defaults." });
+  const handleReset = async () => {
+    setSaving(true);
+    try {
+      await saveProfileToDb(defaultProfileData);
+      setData(defaultProfileData);
+      toast({ title: "Reset", description: "Profile reset to defaults." });
+    } catch (err: any) {
+      toast({ title: "Error", description: err.message || "Failed to reset.", variant: "destructive" });
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/");
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="animate-spin text-primary" size={32} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -43,8 +72,10 @@ const Admin = () => {
         </div>
         <div className="flex gap-2">
           <Button variant="ghost" size="sm" onClick={handleLogout} className="text-navbar-foreground/70 hover:text-navbar-foreground gap-1"><LogOut size={14} /> Logout</Button>
-          <Button variant="outline" size="sm" onClick={handleReset} className="text-xs">Reset</Button>
-          <Button size="sm" onClick={handleSave} className="gap-1"><Save size={14} /> Save</Button>
+          <Button variant="outline" size="sm" onClick={handleReset} disabled={saving} className="text-xs">Reset</Button>
+          <Button size="sm" onClick={handleSave} disabled={saving} className="gap-1">
+            {saving ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />} Save
+          </Button>
         </div>
       </div>
 
