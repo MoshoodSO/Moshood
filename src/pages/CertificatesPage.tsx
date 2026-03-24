@@ -1,12 +1,20 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Award, ShieldCheck } from "lucide-react";
+import { ExternalLink, Award, ShieldCheck, Loader2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import PageBanner from "@/components/PageBanner";
 import Footer from "@/components/Footer";
-import { getProfileData } from "@/data/profileData";
+import { useProfileData } from "@/hooks/useProfileData";
 
 const CertificatesPage = () => {
-  const data = getProfileData();
+  const { data, loading } = useProfileData();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="animate-spin text-primary" size={32} />
+      </div>
+    );
+  }
 
   const categories = data.certificates.reduce<Record<string, typeof data.certificates>>((acc, cert) => {
     const cat = cert.category || "Other";
@@ -15,7 +23,6 @@ const CertificatesPage = () => {
     return acc;
   }, {});
 
-  // Sort categories alphabetically and certs by year descending
   const sortedCategories = Object.entries(categories)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([cat, certs]) => [cat, [...certs].sort((a, b) => b.year.localeCompare(a.year))] as const);
@@ -70,9 +77,7 @@ const CertificatesPage = () => {
 
             {data.badges && data.badges.length > 0 && (
               <div className="mt-16">
-                <h2 className="text-2xl font-extrabold text-center mb-4 text-foreground">
-                  Badges
-                </h2>
+                <h2 className="text-2xl font-extrabold text-center mb-4 text-foreground">Badges</h2>
                 <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
                   Digital badges earned from various platforms and programs
                 </p>
