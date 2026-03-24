@@ -45,13 +45,13 @@ export async function saveProfileToDb(data: ProfileData) {
   if (rows && rows.length > 0) {
     const { error } = await supabase
       .from("profile_data")
-      .update({ data: data as unknown as Record<string, unknown>, updated_at: new Date().toISOString() })
+      .update({ data: JSON.parse(JSON.stringify(data)), updated_at: new Date().toISOString() })
       .eq("id", rows[0].id);
     if (error) throw error;
   } else {
     const { error } = await supabase
       .from("profile_data")
-      .insert({ data: data as unknown as Record<string, unknown> });
+      .insert([{ data: JSON.parse(JSON.stringify(data)) }]);
     if (error) throw error;
   }
 }
