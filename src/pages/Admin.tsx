@@ -239,7 +239,17 @@ const Admin = () => {
             {data.recognitions.map((r, i) => (
               <Card key={i} className="p-6 space-y-3">
                 <div className="flex justify-between items-center">
-                  <h3 className="font-bold text-sm text-card-foreground">Recognition {i + 1}</h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-bold text-sm text-card-foreground">Recognition {i + 1}</h3>
+                    <div className="flex gap-1">
+                      <Button variant="outline" size="icon" className="h-6 w-6" disabled={i === 0} onClick={() => {
+                        const arr = [...data.recognitions]; [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]]; update("recognitions", arr);
+                      }}><ChevronUp size={12} /></Button>
+                      <Button variant="outline" size="icon" className="h-6 w-6" disabled={i === data.recognitions.length - 1} onClick={() => {
+                        const arr = [...data.recognitions]; [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]]; update("recognitions", arr);
+                      }}><ChevronDown size={12} /></Button>
+                    </div>
+                  </div>
                   <Button variant="ghost" size="icon" onClick={() => update("recognitions", data.recognitions.filter((_, j) => j !== i))}><Trash2 size={14} /></Button>
                 </div>
                 <Field label="Title" value={r.title} onChange={(v) => {

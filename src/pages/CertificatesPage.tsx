@@ -1,22 +1,44 @@
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Award, ShieldCheck, Loader2 } from "lucide-react";
+import { ExternalLink, Award, ShieldCheck, Loader2, Search, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import PageBanner from "@/components/PageBanner";
 import Footer from "@/components/Footer";
 import { useProfileData } from "@/hooks/useProfileData";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const CertificatesPage = () => {
   const { data, loading } = useProfileData();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedYear, setSelectedYear] = useState("all");
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="animate-spin text-primary" size={32} />
-      </div>
-    );
-  }
+  const allCategories = useMemo(() => {
+    const cats = new Set(data.certificates.map((c) => c.category || "Other"));
+    return Array.from(cats).sort();
+  }, [data.certificates]);
 
-  const categories = data.certificates.reduce<Record<string, typeof data.certificates>>((acc, cert) => {
+  const allYears = useMemo(() => {
+    const yrs = new Set(data.certificates.map((c) => c.year));
+    return Array.from(yrs).sort((a, b) => b.localeCompare(a));
+  }, [data.certificates]);
+
+  const filtered = useMemo(() => {
+    return data.certificates.filter((cert) => {
+      const matchesSearch =
+        !searchQuery ||
+        cert.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        cert.issuer.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory =
+        selectedCategory === "all" || (cert.category || "Other") === selectedCategory;
+      const matchesYear = selectedYear === "all" || cert.year === selectedYear;
+      return matchesSearch && matchesCategory && matchesYear;
+    });
+  }, [data.certificates, searchQuery, selectedCategory, selectedYear]);
+
+  const categories = filtered.reduce<Record<string, typeof data.certificates>>((acc, cert) => {
     const cat = cert.category || "Other";
     if (!acc[cat]) acc[cat] = [];
     acc[cat].push(cert);
@@ -27,6 +49,22 @@ const CertificatesPage = () => {
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([cat, certs]) => [cat, [...certs].sort((a, b) => b.year.localeCompare(a.year))] as const);
 
+  const hasActiveFilters = searchQuery || selectedCategory !== "all" || selectedYear !== "all";
+
+  const clearFilters = () => {
+    setSearchQuery("");
+    setSelectedCategory("all");
+    setSelectedYear("all");
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="animate-spin text-primary" size={32} />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar name={data.name} />
@@ -35,6 +73,62 @@ const CertificatesPage = () => {
       <div className="flex-1">
         <section className="py-16 px-6">
           <div className="max-w-7xl mx-auto">
+            {/* Filter Bar */}
+            <div className="mb-10 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+              <div className="relative flex-1 max-w-sm">
+                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  placeholder="Search by name or issuer..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-9"
+                />
+              </div>
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {allCategories.map((cat) => (
+                    <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Select value={selectedYear} onValueChange={setSelectedYear}>
+                <SelectTrigger className="w-[120px]">
+                  <SelectValue placeholder="Year" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Years</SelectItem>
+                  {allYears.map((yr) => (
+                    <SelectItem key={yr} value={yr}>{yr}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {hasActiveFilters && (
+                <button onClick={clearFilters} className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition">
+                  <X size={14} /> Clear
+                </button>
+              )}
+            </div>
+
+            {hasActiveFilters && (
+              <div className="mb-6 flex items-center gap-2 flex-wrap">
+                <span className="text-xs text-muted-foreground">Showing {filtered.length} of {data.certificates.length}:</span>
+                {searchQuery && <Badge variant="secondary" className="text-xs">&quot;{searchQuery}&quot;</Badge>}
+                {selectedCategory !== "all" && <Badge variant="secondary" className="text-xs">{selectedCategory}</Badge>}
+                {selectedYear !== "all" && <Badge variant="secondary" className="text-xs">{selectedYear}</Badge>}
+              </div>
+            )}
+
+            {sortedCategories.length === 0 && (
+              <div className="text-center py-16 text-muted-foreground">
+                <p className="text-lg font-medium">No certificates match your filters</p>
+                <button onClick={clearFilters} className="mt-2 text-primary text-sm hover:underline">Clear filters</button>
+              </div>
+            )}
+
             {sortedCategories.map(([category, certs]) => (
               <div key={category} className="mb-12">
                 <motion.h3
