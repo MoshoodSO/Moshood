@@ -46,9 +46,23 @@ const CertificatesPage = () => {
     return acc;
   }, {});
 
+  const sortCerts = (certs: typeof data.certificates) => {
+    const arr = [...certs];
+    switch (sortBy) {
+      case "year-asc": return arr.sort((a, b) => a.year.localeCompare(b.year));
+      case "year-desc": return arr.sort((a, b) => b.year.localeCompare(a.year));
+      case "name-asc": return arr.sort((a, b) => a.title.localeCompare(b.title));
+      case "name-desc": return arr.sort((a, b) => b.title.localeCompare(a.title));
+      case "issuer-asc": return arr.sort((a, b) => a.issuer.localeCompare(b.issuer));
+      case "added-desc": return arr.reverse();
+      case "added-asc": return arr;
+      default: return arr;
+    }
+  };
+
   const sortedCategories = Object.entries(categories)
     .sort(([a], [b]) => a.localeCompare(b))
-    .map(([cat, certs]) => [cat, [...certs].sort((a, b) => b.year.localeCompare(a.year))] as const);
+    .map(([cat, certs]) => [cat, sortCerts(certs)] as const);
 
   const hasActiveFilters = searchQuery || selectedCategory !== "all" || selectedYear !== "all";
 
