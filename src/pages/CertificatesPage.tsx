@@ -14,6 +14,7 @@ const CertificatesPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedYear, setSelectedYear] = useState("all");
+  const [sortBy, setSortBy] = useState("year-desc");
 
   const allCategories = useMemo(() => {
     const cats = new Set(data.certificates.map((c) => c.category || "Other"));
@@ -45,9 +46,23 @@ const CertificatesPage = () => {
     return acc;
   }, {});
 
+  const sortCerts = (certs: typeof data.certificates) => {
+    const arr = [...certs];
+    switch (sortBy) {
+      case "year-asc": return arr.sort((a, b) => a.year.localeCompare(b.year));
+      case "year-desc": return arr.sort((a, b) => b.year.localeCompare(a.year));
+      case "name-asc": return arr.sort((a, b) => a.title.localeCompare(b.title));
+      case "name-desc": return arr.sort((a, b) => b.title.localeCompare(a.title));
+      case "issuer-asc": return arr.sort((a, b) => a.issuer.localeCompare(b.issuer));
+      case "added-desc": return arr.reverse();
+      case "added-asc": return arr;
+      default: return arr;
+    }
+  };
+
   const sortedCategories = Object.entries(categories)
     .sort(([a], [b]) => a.localeCompare(b))
-    .map(([cat, certs]) => [cat, [...certs].sort((a, b) => b.year.localeCompare(a.year))] as const);
+    .map(([cat, certs]) => [cat, sortCerts(certs)] as const);
 
   const hasActiveFilters = searchQuery || selectedCategory !== "all" || selectedYear !== "all";
 
@@ -104,6 +119,20 @@ const CertificatesPage = () => {
                   {allYears.map((yr) => (
                     <SelectItem key={yr} value={yr}>{yr}</SelectItem>
                   ))}
+                </SelectContent>
+              </Select>
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="year-desc">Year (Newest first)</SelectItem>
+                  <SelectItem value="year-asc">Year (Oldest first)</SelectItem>
+                  <SelectItem value="name-asc">Name (A–Z)</SelectItem>
+                  <SelectItem value="name-desc">Name (Z–A)</SelectItem>
+                  <SelectItem value="issuer-asc">Issuer (A–Z)</SelectItem>
+                  <SelectItem value="added-desc">Recently added</SelectItem>
+                  <SelectItem value="added-asc">Oldest added</SelectItem>
                 </SelectContent>
               </Select>
               {hasActiveFilters && (
