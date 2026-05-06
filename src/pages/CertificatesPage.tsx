@@ -121,6 +121,20 @@ const CertificatesPage = () => {
                   ))}
                 </SelectContent>
               </Select>
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="year-desc">Year (Newest first)</SelectItem>
+                  <SelectItem value="year-asc">Year (Oldest first)</SelectItem>
+                  <SelectItem value="name-asc">Name (A–Z)</SelectItem>
+                  <SelectItem value="name-desc">Name (Z–A)</SelectItem>
+                  <SelectItem value="issuer-asc">Issuer (A–Z)</SelectItem>
+                  <SelectItem value="added-desc">Recently added</SelectItem>
+                  <SelectItem value="added-asc">Oldest added</SelectItem>
+                </SelectContent>
+              </Select>
               {hasActiveFilters && (
                 <button onClick={clearFilters} className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition">
                   <X size={14} /> Clear
