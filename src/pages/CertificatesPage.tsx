@@ -14,6 +14,7 @@ const CertificatesPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedYear, setSelectedYear] = useState("all");
+  const [sortBy, setSortBy] = useState("year-desc");
 
   const allCategories = useMemo(() => {
     const cats = new Set(data.certificates.map((c) => c.category || "Other"));
