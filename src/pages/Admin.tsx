@@ -228,9 +228,12 @@ const Admin = () => {
                 <Field label="Repo URL" value={project.repoUrl} onChange={(v) => {
                   const p = [...data.projects]; p[i] = { ...p[i], repoUrl: v }; update("projects", p);
                 }} />
+                <Field label="Live URL (optional)" value={project.liveUrl || ""} onChange={(v) => {
+                  const p = [...data.projects]; p[i] = { ...p[i], liveUrl: v }; update("projects", p);
+                }} />
               </Card>
             ))}
-            <Button variant="outline" onClick={() => update("projects", [...data.projects, { title: "", emoji: "🚀", description: "", features: [], stack: [], repoUrl: "" }])} className="gap-1">
+            <Button variant="outline" onClick={() => update("projects", [...data.projects, { title: "", emoji: "🚀", description: "", features: [], stack: [], repoUrl: "", liveUrl: "" }])} className="gap-1">
               <Plus size={14} /> Add Project
             </Button>
           </TabsContent>
