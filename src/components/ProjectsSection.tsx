@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Globe } from "lucide-react";
 import { Project } from "@/data/profileData";
 
 const ProjectsSection = ({ projects }: { projects: Project[] }) => (
