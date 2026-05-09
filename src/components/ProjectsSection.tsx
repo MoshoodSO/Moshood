@@ -43,14 +43,26 @@ const ProjectsSection = ({ projects }: { projects: Project[] }) => (
                   <span key={j} className="text-xs px-2 py-1 bg-secondary rounded-md text-secondary-foreground font-medium">{s}</span>
                 ))}
               </div>
-              <a
-                href={project.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:opacity-80 transition"
-              >
-                <ExternalLink size={14} /> GitHub
-              </a>
+              <div className="flex flex-wrap items-center gap-4">
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:opacity-80 transition"
+                >
+                  <ExternalLink size={14} /> GitHub
+                </a>
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:opacity-80 transition"
+                  >
+                    <Globe size={14} /> Live Demo
+                  </a>
+                )}
+              </div>
             </div>
           </motion.div>
         ))}
