@@ -32,6 +32,7 @@ export interface Project {
   features: string[];
   stack: string[];
   repoUrl: string;
+  liveUrl?: string;
   emoji: string;
 }
 
