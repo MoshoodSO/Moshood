@@ -18,6 +18,22 @@ export interface ProfileData {
   techStack: string[];
   stats: { label: string; value: string }[];
   quote: string;
+  contact?: ContactConfig;
+}
+
+export interface ContactMethod {
+  icon: string; // mail | linkedin | github | twitter | external | kaggle | phone | globe
+  label: string;
+  description: string;
+  href: string;
+}
+
+export interface ContactConfig {
+  bannerTitle: string;
+  bannerSubtitle: string;
+  heading: string;
+  intro: string;
+  methods: ContactMethod[];
 }
 
 export interface SkillCategory {
