@@ -81,13 +81,14 @@ const Admin = () => {
 
       <div className="max-w-4xl mx-auto p-6">
         <Tabs defaultValue="general">
-          <TabsList className="grid grid-cols-6 mb-6">
+          <TabsList className="grid grid-cols-7 mb-6">
             <TabsTrigger value="general">General</TabsTrigger>
             <TabsTrigger value="skills">Skills</TabsTrigger>
             <TabsTrigger value="projects">Projects</TabsTrigger>
             <TabsTrigger value="recognition">Recognition</TabsTrigger>
             <TabsTrigger value="certificates">Certificates</TabsTrigger>
             <TabsTrigger value="teaching">Teaching</TabsTrigger>
+            <TabsTrigger value="contact">Contact</TabsTrigger>
           </TabsList>
 
           <TabsContent value="general" className="space-y-4">
