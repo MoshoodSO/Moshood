@@ -19,7 +19,10 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar name={data.name} />
-      <PageBanner title="Get in Touch" subtitle="Open to collaborations, mentorship, and research opportunities" />
+      <PageBanner
+        title={data.contact?.bannerTitle || "Get in Touch"}
+        subtitle={data.contact?.bannerSubtitle || "Open to collaborations, mentorship, and research opportunities"}
+      />
       <div className="flex-1">
         <ContactSection data={data} />
       </div>

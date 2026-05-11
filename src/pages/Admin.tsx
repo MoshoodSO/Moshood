@@ -81,13 +81,14 @@ const Admin = () => {
 
       <div className="max-w-4xl mx-auto p-6">
         <Tabs defaultValue="general">
-          <TabsList className="grid grid-cols-6 mb-6">
+          <TabsList className="grid grid-cols-7 mb-6">
             <TabsTrigger value="general">General</TabsTrigger>
             <TabsTrigger value="skills">Skills</TabsTrigger>
             <TabsTrigger value="projects">Projects</TabsTrigger>
             <TabsTrigger value="recognition">Recognition</TabsTrigger>
             <TabsTrigger value="certificates">Certificates</TabsTrigger>
             <TabsTrigger value="teaching">Teaching</TabsTrigger>
+            <TabsTrigger value="contact">Contact</TabsTrigger>
           </TabsList>
 
           <TabsContent value="general" className="space-y-4">
@@ -355,6 +356,64 @@ const Admin = () => {
             <Button variant="outline" onClick={() => update("teaching", [...data.teaching, { title: "", description: "", period: "", emoji: "🎓" }])} className="gap-1">
               <Plus size={14} /> Add Role
             </Button>
+          </TabsContent>
+
+          <TabsContent value="contact" className="space-y-4">
+            {(() => {
+              const c = data.contact || { bannerTitle: "", bannerSubtitle: "", heading: "", intro: "", methods: [] };
+              const setContact = (patch: Partial<typeof c>) => update("contact", { ...c, ...patch });
+              return (
+                <>
+                  <Card className="p-6 space-y-4">
+                    <h2 className="font-bold text-lg text-card-foreground">Contact Page Header</h2>
+                    <Field label="Banner Title" value={c.bannerTitle} onChange={(v) => setContact({ bannerTitle: v })} />
+                    <Field label="Banner Subtitle" value={c.bannerSubtitle} onChange={(v) => setContact({ bannerSubtitle: v })} />
+                    <Field label="Section Heading" value={c.heading} onChange={(v) => setContact({ heading: v })} />
+                    <div>
+                      <label className="text-sm font-medium text-foreground">Intro Paragraph</label>
+                      <Textarea value={c.intro} onChange={(e) => setContact({ intro: e.target.value })} rows={3} />
+                    </div>
+                  </Card>
+
+                  <Card className="p-6 space-y-4">
+                    <h2 className="font-bold text-lg text-card-foreground">Contact Methods</h2>
+                    {c.methods.map((m, i) => (
+                      <Card key={i} className="p-4 space-y-3 bg-muted/30">
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-bold text-sm text-card-foreground">Method {i + 1}</h3>
+                            <div className="flex gap-1">
+                              <Button variant="outline" size="icon" className="h-6 w-6" disabled={i === 0} onClick={() => {
+                                const arr = [...c.methods]; [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]]; setContact({ methods: arr });
+                              }}><ChevronUp size={12} /></Button>
+                              <Button variant="outline" size="icon" className="h-6 w-6" disabled={i === c.methods.length - 1} onClick={() => {
+                                const arr = [...c.methods]; [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]]; setContact({ methods: arr });
+                              }}><ChevronDown size={12} /></Button>
+                            </div>
+                          </div>
+                          <Button variant="ghost" size="icon" onClick={() => setContact({ methods: c.methods.filter((_, j) => j !== i) })}><Trash2 size={14} /></Button>
+                        </div>
+                        <Field label="Icon (mail, linkedin, github, twitter, external, globe, phone)" value={m.icon} onChange={(v) => {
+                          const arr = [...c.methods]; arr[i] = { ...arr[i], icon: v }; setContact({ methods: arr });
+                        }} />
+                        <Field label="Label" value={m.label} onChange={(v) => {
+                          const arr = [...c.methods]; arr[i] = { ...arr[i], label: v }; setContact({ methods: arr });
+                        }} />
+                        <Field label="Description" value={m.description} onChange={(v) => {
+                          const arr = [...c.methods]; arr[i] = { ...arr[i], description: v }; setContact({ methods: arr });
+                        }} />
+                        <Field label="Link / URL (use mailto: for email)" value={m.href} onChange={(v) => {
+                          const arr = [...c.methods]; arr[i] = { ...arr[i], href: v }; setContact({ methods: arr });
+                        }} />
+                      </Card>
+                    ))}
+                    <Button variant="outline" onClick={() => setContact({ methods: [...c.methods, { icon: "mail", label: "", description: "", href: "" }] })} className="gap-1">
+                      <Plus size={14} /> Add Contact Method
+                    </Button>
+                  </Card>
+                </>
+              );
+            })()}
           </TabsContent>
         </Tabs>
       </div>
