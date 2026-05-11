@@ -173,6 +173,18 @@ export const defaultProfileData: ProfileData = {
     { label: "Awards", value: "5+" },
   ],
   quote: "Mathematics reveals the hidden structure of the universe – and I am passionate about guiding others to see it clearly.",
+  contact: {
+    bannerTitle: "Get in Touch",
+    bannerSubtitle: "Open to collaborations, mentorship, and research opportunities",
+    heading: "Let's Connect",
+    intro: "Open to research collaborations, mentorship opportunities, tutoring, and data science projects. Let's work together!",
+    methods: [
+      { icon: "mail", label: "Email", description: "Research & collaboration", href: "mailto:shoyombomoshood1@gmail.com" },
+      { icon: "linkedin", label: "LinkedIn", description: "Professional network", href: "https://www.linkedin.com/in/shoyombo-moshood-582003126" },
+      { icon: "github", label: "GitHub", description: "Code & projects", href: "https://github.com/MoshoodSO" },
+      { icon: "external", label: "Kaggle", description: "Competitions & datasets", href: "https://www.kaggle.com/moshood12" },
+    ],
+  },
 };
 
 export function getProfileData(): ProfileData {
