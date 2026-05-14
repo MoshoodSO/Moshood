@@ -86,8 +86,9 @@ If you’d like to connect or collaborate:
 
 * GitHub: [https://github.com/MoshoodSO](https://github.com/MoshoodSO)
 
+<!-- 
 ---
 
-<!-- ## 📄 License
+ ## 📄 License
 
 This project is open-source and available under the MIT License. -->
