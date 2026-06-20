@@ -217,7 +217,7 @@ const CertificatesPage = () => {
             ))}
 
             {data.badges && data.badges.length > 0 && (
-              <div className="mt-16">
+              <div id="badges-section" className="mt-16">
                 <h2 className="text-2xl font-extrabold text-center mb-4 text-foreground">Badges</h2>
                 <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
                   Digital badges earned from various platforms and programs
