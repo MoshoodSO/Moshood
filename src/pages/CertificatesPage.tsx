@@ -104,7 +104,7 @@ const CertificatesPage = () => {
       </div>
 
       <div className="flex-1">
-        <section className="py-16 px-6">
+        <section id="certifications-section" className="py-16 px-6">
           <div className="max-w-7xl mx-auto">
             {/* Filter Bar */}
             <div className="mb-10 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
