@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Award, ShieldCheck, Loader2, Search, X } from "lucide-react";
+import { ExternalLink, Award, ShieldCheck, Loader2, Search, X, Scroll } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import PageBanner from "@/components/PageBanner";
 import Footer from "@/components/Footer";
