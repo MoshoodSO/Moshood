@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Award, ShieldCheck, Loader2, Search, X } from "lucide-react";
+import { ExternalLink, Award, ShieldCheck, Loader2, Search, X, Scroll } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import PageBanner from "@/components/PageBanner";
 import Footer from "@/components/Footer";
@@ -85,8 +85,26 @@ const CertificatesPage = () => {
       <Navbar name={data.name} />
       <PageBanner title="Licenses & Certifications" subtitle="Professional certifications and completed training programs" />
 
+      {/* Section Directory */}
+      <div className="flex justify-center gap-4 py-4 bg-muted/30 border-b border-border">
+        <button
+          onClick={() => document.getElementById("certifications-section")?.scrollIntoView({ behavior: "smooth" })}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-background border border-border text-sm font-medium text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all shadow-sm"
+        >
+          <Award size={16} />
+          Certifications
+        </button>
+        <button
+          onClick={() => document.getElementById("badges-section")?.scrollIntoView({ behavior: "smooth" })}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-background border border-border text-sm font-medium text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all shadow-sm"
+        >
+          <ShieldCheck size={16} />
+          Badges
+        </button>
+      </div>
+
       <div className="flex-1">
-        <section className="py-16 px-6">
+        <section id="certifications-section" className="py-16 px-6">
           <div className="max-w-7xl mx-auto">
             {/* Filter Bar */}
             <div className="mb-10 flex flex-col sm:flex-row gap-3 items-start sm:items-center">
@@ -199,7 +217,7 @@ const CertificatesPage = () => {
             ))}
 
             {data.badges && data.badges.length > 0 && (
-              <div className="mt-16">
+              <div id="badges-section" className="mt-16">
                 <h2 className="text-2xl font-extrabold text-center mb-4 text-foreground">Badges</h2>
                 <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
                   Digital badges earned from various platforms and programs
