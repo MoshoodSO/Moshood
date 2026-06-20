@@ -85,6 +85,24 @@ const CertificatesPage = () => {
       <Navbar name={data.name} />
       <PageBanner title="Licenses & Certifications" subtitle="Professional certifications and completed training programs" />
 
+      {/* Section Directory */}
+      <div className="flex justify-center gap-4 py-4 bg-muted/30 border-b border-border">
+        <button
+          onClick={() => document.getElementById("certifications-section")?.scrollIntoView({ behavior: "smooth" })}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-background border border-border text-sm font-medium text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all shadow-sm"
+        >
+          <Award size={16} />
+          Certifications
+        </button>
+        <button
+          onClick={() => document.getElementById("badges-section")?.scrollIntoView({ behavior: "smooth" })}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-background border border-border text-sm font-medium text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all shadow-sm"
+        >
+          <ShieldCheck size={16} />
+          Badges
+        </button>
+      </div>
+
       <div className="flex-1">
         <section className="py-16 px-6">
           <div className="max-w-7xl mx-auto">
