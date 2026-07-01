@@ -444,4 +444,52 @@ const Field = ({ label, value, onChange }: { label: string; value: string; onCha
   </div>
 );
 
+const CategorySelect = ({
+  value,
+  categories,
+  onChange,
+}: {
+  value: string;
+  categories: string[];
+  onChange: (v: string) => void;
+}) => {
+  const isCustom = value !== "" && !categories.includes(value);
+  const [mode, setMode] = useState<"existing" | "new">(isCustom ? "new" : "existing");
+
+  return (
+    <div className="space-y-2">
+      <label className="text-xs font-semibold text-muted-foreground block">Category</label>
+      {mode === "existing" ? (
+        <div className="flex gap-2">
+          <select
+            className="flex h-10 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm"
+            value={categories.includes(value) ? value : ""}
+            onChange={(e) => onChange(e.target.value)}
+          >
+            <option value="" disabled>Select a category…</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+          <Button type="button" variant="outline" size="sm" onClick={() => { setMode("new"); onChange(""); }}>
+            + New
+          </Button>
+        </div>
+      ) : (
+        <div className="flex gap-2">
+          <Input
+            autoFocus
+            placeholder="New category name"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+          />
+          <Button type="button" variant="outline" size="sm" onClick={() => { setMode("existing"); onChange(""); }}>
+            Cancel
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default Admin;
