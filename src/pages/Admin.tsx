@@ -289,12 +289,28 @@ const Admin = () => {
                 <Field label="Issuer" value={c.issuer} onChange={(v) => {
                   const cs = [...data.certificates]; cs[i] = { ...cs[i], issuer: v }; update("certificates", cs);
                 }} />
-                <Field label="Year" value={c.year} onChange={(v) => {
-                  const cs = [...data.certificates]; cs[i] = { ...cs[i], year: v }; update("certificates", cs);
-                }} />
-                <Field label="Category (e.g. Data Science, Educational, Generative AI & Prompt Engineering)" value={c.category || ""} onChange={(v) => {
-                  const cs = [...data.certificates]; cs[i] = { ...cs[i], category: v }; update("certificates", cs);
-                }} />
+                <div>
+                  <label className="text-xs font-semibold text-muted-foreground mb-1 block">Year</label>
+                  <Input
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]{4}"
+                    maxLength={4}
+                    placeholder="YYYY"
+                    value={c.year}
+                    onChange={(e) => {
+                      const digits = e.target.value.replace(/\D/g, "").slice(0, 4);
+                      const cs = [...data.certificates]; cs[i] = { ...cs[i], year: digits }; update("certificates", cs);
+                    }}
+                  />
+                </div>
+                <CategorySelect
+                  value={c.category || ""}
+                  categories={Array.from(new Set(data.certificates.map((x) => x.category).filter(Boolean))) as string[]}
+                  onChange={(v) => {
+                    const cs = [...data.certificates]; cs[i] = { ...cs[i], category: v }; update("certificates", cs);
+                  }}
+                />
                 <Field label="URL" value={c.url} onChange={(v) => {
                   const cs = [...data.certificates]; cs[i] = { ...cs[i], url: v }; update("certificates", cs);
                 }} />
