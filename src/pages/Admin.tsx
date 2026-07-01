@@ -289,12 +289,28 @@ const Admin = () => {
                 <Field label="Issuer" value={c.issuer} onChange={(v) => {
                   const cs = [...data.certificates]; cs[i] = { ...cs[i], issuer: v }; update("certificates", cs);
                 }} />
-                <Field label="Year" value={c.year} onChange={(v) => {
-                  const cs = [...data.certificates]; cs[i] = { ...cs[i], year: v }; update("certificates", cs);
-                }} />
-                <Field label="Category (e.g. Data Science, Educational, Generative AI & Prompt Engineering)" value={c.category || ""} onChange={(v) => {
-                  const cs = [...data.certificates]; cs[i] = { ...cs[i], category: v }; update("certificates", cs);
-                }} />
+                <div>
+                  <label className="text-xs font-semibold text-muted-foreground mb-1 block">Year</label>
+                  <Input
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]{4}"
+                    maxLength={4}
+                    placeholder="YYYY"
+                    value={c.year}
+                    onChange={(e) => {
+                      const digits = e.target.value.replace(/\D/g, "").slice(0, 4);
+                      const cs = [...data.certificates]; cs[i] = { ...cs[i], year: digits }; update("certificates", cs);
+                    }}
+                  />
+                </div>
+                <CategorySelect
+                  value={c.category || ""}
+                  categories={Array.from(new Set(data.certificates.map((x) => x.category).filter(Boolean))) as string[]}
+                  onChange={(v) => {
+                    const cs = [...data.certificates]; cs[i] = { ...cs[i], category: v }; update("certificates", cs);
+                  }}
+                />
                 <Field label="URL" value={c.url} onChange={(v) => {
                   const cs = [...data.certificates]; cs[i] = { ...cs[i], url: v }; update("certificates", cs);
                 }} />
@@ -427,5 +443,53 @@ const Field = ({ label, value, onChange }: { label: string; value: string; onCha
     <Input value={value} onChange={(e) => onChange(e.target.value)} />
   </div>
 );
+
+const CategorySelect = ({
+  value,
+  categories,
+  onChange,
+}: {
+  value: string;
+  categories: string[];
+  onChange: (v: string) => void;
+}) => {
+  const isCustom = value !== "" && !categories.includes(value);
+  const [mode, setMode] = useState<"existing" | "new">(isCustom ? "new" : "existing");
+
+  return (
+    <div className="space-y-2">
+      <label className="text-xs font-semibold text-muted-foreground block">Category</label>
+      {mode === "existing" ? (
+        <div className="flex gap-2">
+          <select
+            className="flex h-10 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm"
+            value={categories.includes(value) ? value : ""}
+            onChange={(e) => onChange(e.target.value)}
+          >
+            <option value="" disabled>Select a category…</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+          <Button type="button" variant="outline" size="sm" onClick={() => { setMode("new"); onChange(""); }}>
+            + New
+          </Button>
+        </div>
+      ) : (
+        <div className="flex gap-2">
+          <Input
+            autoFocus
+            placeholder="New category name"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+          />
+          <Button type="button" variant="outline" size="sm" onClick={() => { setMode("existing"); onChange(""); }}>
+            Cancel
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Admin;
