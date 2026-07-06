@@ -37,9 +37,9 @@
     --radius: 0.75rem;
 
     /* Custom tokens */
-    --hero-gradient-start: 225 73% 57%;
-    --hero-gradient-mid: 260 60% 55%;
-    --hero-gradient-end: 280 55% 65%;
+    --hero-gradient-start: 220 85% 22%;
+    --hero-gradient-mid: 175 80% 40%;
+    --hero-gradient-end: 195 90% 58%;
     --navbar: 222 47% 8%;
     --navbar-foreground: 210 40% 98%;
     --success: 160 60% 45%;
