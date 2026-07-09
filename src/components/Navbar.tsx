@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "@/assets/MoshLogo.png";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface NavbarProps {
   name: string;
@@ -42,9 +43,12 @@ const Navbar = ({ name }: NavbarProps) => {
             </Link>
           ))}
         </div>
-        <button onClick={() => setOpen(!open)} className="md:hidden text-navbar-foreground">
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button onClick={() => setOpen(!open)} className="md:hidden text-navbar-foreground">
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
       {open && (
         <div className="md:hidden bg-navbar border-t border-navbar-foreground/10 px-6 py-4 space-y-3">
