@@ -85,6 +85,7 @@ If you'd like to improve something:
 If you’d like to connect or collaborate:
 
 * GitHub: [https://github.com/MoshoodSO](https://github.com/MoshoodSO)
+* Link: [Moshood's Homepage](https://moshoodso.vercel.app/)
 
 <!-- 
 ---
