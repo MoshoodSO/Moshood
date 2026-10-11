@@ -1,5 +1,5 @@
-import { createOpenAI } from "npm:@ai-sdk/openai@^3";
-import { streamText, convertToModelMessages, type UIMessage } from "npm:ai@^6";
+import { createOpenAI } from "npm:@ai-sdk/openai";
+import { streamText, convertToModelMessages, type UIMessage } from "npm:ai@^7";
 import { createClient } from "npm:@supabase/supabase-js@^2.96.0";
 
 const cors = {
@@ -48,7 +48,7 @@ ${JSON.stringify(profile)}`;
 
     const result = streamText({
       model: provider.responses("openai/gpt-6-astra"),
-      system: instructions,
+      instructions,
       messages: await convertToModelMessages(messages),
       abortSignal: req.signal,
       providerOptions: {
