@@ -59,11 +59,7 @@ function ChatWindow({ thread, onUpdate }: { thread: Thread; onUpdate: (m: UIMess
       <Conversation className="flex-1 min-h-0">
         <ConversationContent>
           {messages.length === 0 ? (
-            <ConversationEmptyState
-              icon={<img src={logo} alt="" className="h-10 w-auto" />}
-              title="Ask about Moshood"
-              description="Profile, projects, certifications and more."
-            >
+            <ConversationEmptyState>
               <div className="flex flex-col items-center gap-3">
                 <img src={logo} alt="" className="h-10 w-auto" />
                 <p className="text-sm font-medium">Ask about Moshood</p>
