@@ -1,108 +1,165 @@
-# 👨‍💼 Moshood — Personal Portfolio
+# Moshood Portfolio
 
-A curated collection of my projects, experiments, and learning notes in software development. This repository is a showcase of practical code samples, small apps, and exercises that demonstrate my skills and growth as a developer.
+A modern personal portfolio and profile website for Moshood Shoyombo, built with React, TypeScript, Vite, and Tailwind CSS. The app showcases a professional bio, skills, projects, teaching experience, certifications, recognitions, and contact details, with an interactive portfolio assistant included.
 
----
+## Overview
 
-## 📌 Table of Contents
+This repository contains a polished personal portfolio website designed to present:
 
-- [Overview](#📌-overview)
-- [Features](#-features)
-- [Technologies](#️-technologies)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Contact](#-contact)
+- professional background and expertise
+- technical skills and research interests
+- featured projects and open-source work
+- academic and industry recognitions
+- teaching and mentorship experience
+- certificates and achievement highlights
+- contact and networking information
 
----
+The site is structured as a single-page portfolio experience with dedicated sections and a clean, responsive UI.
 
-## 📌 Overview
+## Tech Stack
 
-This repository contains multiple small projects and code snippets across web development and general programming. It is intended to:
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- shadcn/ui
+- Radix UI
+- React Router
+- Supabase
+- TanStack Query
+- Framer Motion
+- Vitest
+- ESLint
 
-- Showcase coding projects and experiments
-- Document the learning journey and notes
-- Provide reusable examples and reference code
-- Share explorations of tools and frameworks
+## Features
 
----
+- Responsive portfolio homepage
+- Skills and expertise sections
+- Projects showcase with stack details and links
+- Recognitions and awards timeline
+- Teaching and mentorship section
+- Certificates and credentials overview
+- Contact section with direct links
+- Admin profile management backed by Supabase
+- Portfolio assistant UI for interactive guidance
+- Dark/light theme support
 
-## 🚀 Features
+## Project Structure
 
-- Clean and organized project structure
-- Multiple small projects and experiments
-- Practical, well-commented code examples
-- Learning-oriented notes and exercises
-- Open to collaboration and improvements
+```bash
+.
+├── public/
+├── src/
+│   ├── components/
+│   ├── data/
+│   ├── hooks/
+│   ├── integrations/
+│   ├── pages/
+│   ├── App.tsx
+│   └── main.tsx
+├── .env
+├── .gitignore
+├── components.json
+├── eslint.config.js
+├── index.html
+├── package.json
+├── tailwind.config.ts
+├── tsconfig.json
+├── vite.config.ts
+├── vitest.config.ts
+└── README.md
+```
 
----
+## Prerequisites
 
-## 🛠️ Technologies
+Before running the project locally, make sure you have:
 
-Depending on the subfolder, you may find projects built with:
+- Node.js 18+
+- npm or bun
 
-- HTML, CSS
-- JavaScript (vanilla, frameworks)
-- Python
-- Git & GitHub workflows
-- Other modern tools and libraries
-
----
-
-## ⚙️ Installation
+## Installation
 
 Clone the repository:
 
 ```bash
 git clone https://github.com/MoshoodSO/Moshood.git
+cd Moshood
 ```
 
-Open the project folder you want to explore:
+Install dependencies:
 
 ```bash
-cd Moshood
-# Then change into a specific project folder, e.g.:
-# cd projects/my-web-app
+npm install
 ```
 
-Each project may have its own README with additional setup steps.
+If your environment uses Bun instead:
 
----
+```bash
+bun install
+```
 
-## 💡 Usage
+## Environment Setup
 
-1. Clone the repository.
-2. Open the desired project folder.
-3. Follow that project's instructions (see its README).
-4. Run, modify, and experiment with the code.
+This project may rely on a Supabase client configuration through environment variables. Ensure your local environment includes the required values in a `.env` file if applicable.
 
----
+Example:
 
-## 🤝 Contributing
+```bash
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-Contributions, suggestions, and improvements are very welcome.
+## Running the App
 
-To contribute:
+Start the development server:
 
-1. Fork the repository
-2. Create a new branch (git checkout -b feature/my-change)
-3. Commit your changes
-4. Open a Pull Request describing your changes
+```bash
+npm run dev
+```
 
-Please keep PRs focused and include a short description of what you changed and why.
+Then open the local Vite URL shown in the terminal (usually `http://localhost:5173`).
 
----
+## Production Build
 
-## 📄 License
+```bash
+npm run build
+```
 
-This project is open-source and available under the MIT License. See LICENSE for details.
+Preview the production build:
 
----
+```bash
+npm run preview
+```
 
-## 📬 Contact
+## Testing
+
+Run the test suite:
+
+```bash
+npm test
+```
+
+## Linting
+
+```bash
+npm run lint
+```
+
+## Deployment
+
+The project is configured for modern frontend deployment and includes Vercel settings. You can deploy it to Vercel or any static hosting platform that supports Vite applications.
+
+## License
+
+This project is intended for personal portfolio use and is distributed under the repository's applicable license terms.
+
+## Contact
 
 - GitHub: https://github.com/MoshoodSO
+- LinkedIn: https://www.linkedin.com/in/shoyombo-moshood-582003126
 - Personal site: https://moshoodso.vercel.app/
+- Email: shoyombomoshood1@gmail.com
 
-Thanks for visiting — feel free to explore the projects and open issues or PRs if you have suggestions or find something that can be improved!
+## Notes
+
+This repository is primarily built with TypeScript (approximately 98% of the codebase), with supporting CSS styling and a small amount of other assets. It reflects a modern, maintainable frontend portfolio implementation for a data science, AI, and research-focused profile.
