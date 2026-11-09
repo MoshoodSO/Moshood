@@ -276,7 +276,17 @@ const Admin = () => {
           </TabsContent>
 
           <TabsContent value="certificates" className="space-y-4">
-            <h2 className="font-bold text-lg text-card-foreground">Certificates</h2>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="font-bold text-lg text-card-foreground">Certificates</h2>
+              <div className="flex flex-wrap gap-2">
+                <Button variant="outline" onClick={() => update("certificates", [...data.certificates, { title: "", issuer: "", year: "", url: "", category: "" }])} className="gap-1">
+                  <Plus size={14} /> Add Certificate
+                </Button>
+                <Button variant="outline" onClick={() => update("badges", [...(data.badges || []), { title: "", issuer: "", imageUrl: "", url: "" }])} className="gap-1">
+                  <Plus size={14} /> Add Badge
+                </Button>
+              </div>
+            </div>
             {data.certificates.map((c, i) => (
               <Card key={i} className="p-6 space-y-3">
                 <div className="flex justify-between items-center">
@@ -316,10 +326,6 @@ const Admin = () => {
                 }} />
               </Card>
             ))}
-            <Button variant="outline" onClick={() => update("certificates", [...data.certificates, { title: "", issuer: "", year: "", url: "", category: "" }])} className="gap-1">
-              <Plus size={14} /> Add Certificate
-            </Button>
-
             <div className="border-t border-border pt-6 mt-6">
               <h2 className="font-bold text-lg text-card-foreground mb-4">Badges</h2>
               {(data.badges || []).map((b, i) => (
@@ -342,9 +348,6 @@ const Admin = () => {
                   }} />
                 </Card>
               ))}
-              <Button variant="outline" onClick={() => update("badges", [...(data.badges || []), { title: "", issuer: "", imageUrl: "", url: "" }])} className="gap-1">
-                <Plus size={14} /> Add Badge
-              </Button>
             </div>
           </TabsContent>
 
