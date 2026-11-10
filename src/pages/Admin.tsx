@@ -240,6 +240,9 @@ const Admin = () => {
           </TabsContent>
 
           <TabsContent value="recognition" className="space-y-4">
+            <Button variant="outline" onClick={() => update("recognitions", [...data.recognitions, { title: "", description: "", year: "", emoji: "🏆" }])} className="gap-1">
+              <Plus size={14} /> Add Recognition
+            </Button>
             {data.recognitions.map((r, i) => (
               <Card key={i} className="p-6 space-y-3">
                 <div className="flex justify-between items-center">
@@ -270,9 +273,6 @@ const Admin = () => {
                 }} />
               </Card>
             ))}
-            <Button variant="outline" onClick={() => update("recognitions", [...data.recognitions, { title: "", description: "", year: "", emoji: "🏆" }])} className="gap-1">
-              <Plus size={14} /> Add Recognition
-            </Button>
           </TabsContent>
 
           <TabsContent value="certificates" className="space-y-4">
