@@ -163,6 +163,9 @@ const Admin = () => {
           </TabsContent>
 
           <TabsContent value="skills" className="space-y-4">
+            <Button variant="outline" onClick={() => update("skills", [...data.skills, { title: "", description: "", icon: "sparkles" }])} className="gap-1">
+              <Plus size={14} /> Add Skill
+            </Button>
             {data.skills.map((skill, i) => (
               <Card key={i} className="p-6 space-y-3">
                 <div className="flex justify-between items-center">
@@ -183,12 +186,12 @@ const Admin = () => {
                 }} />
               </Card>
             ))}
-            <Button variant="outline" onClick={() => update("skills", [...data.skills, { title: "", description: "", icon: "sparkles" }])} className="gap-1">
-              <Plus size={14} /> Add Skill
-            </Button>
           </TabsContent>
 
           <TabsContent value="projects" className="space-y-4">
+            <Button variant="outline" onClick={() => update("projects", [...data.projects, { title: "", emoji: "🚀", description: "", features: [], stack: [], repoUrl: "", liveUrl: "" }])} className="gap-1">
+              <Plus size={14} /> Add Project
+            </Button>
             {data.projects.map((project, i) => (
               <Card key={i} className="p-6 space-y-3">
                 <div className="flex justify-between items-center">
@@ -234,9 +237,6 @@ const Admin = () => {
                 }} />
               </Card>
             ))}
-            <Button variant="outline" onClick={() => update("projects", [...data.projects, { title: "", emoji: "🚀", description: "", features: [], stack: [], repoUrl: "", liveUrl: "" }])} className="gap-1">
-              <Plus size={14} /> Add Project
-            </Button>
           </TabsContent>
 
           <TabsContent value="recognition" className="space-y-4">
@@ -352,6 +352,9 @@ const Admin = () => {
           </TabsContent>
 
           <TabsContent value="teaching" className="space-y-4">
+            <Button variant="outline" onClick={() => update("teaching", [...data.teaching, { title: "", description: "", period: "", emoji: "🎓" }])} className="gap-1">
+              <Plus size={14} /> Add Role
+            </Button>
             {data.teaching.map((t, i) => (
               <Card key={i} className="p-6 space-y-3">
                 <div className="flex justify-between items-center">
@@ -372,9 +375,6 @@ const Admin = () => {
                 }} />
               </Card>
             ))}
-            <Button variant="outline" onClick={() => update("teaching", [...data.teaching, { title: "", description: "", period: "", emoji: "🎓" }])} className="gap-1">
-              <Plus size={14} /> Add Role
-            </Button>
           </TabsContent>
 
           <TabsContent value="contact" className="space-y-4">
