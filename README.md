@@ -1,6 +1,6 @@
 # Moshood Portfolio
 
-A modern personal portfolio and profile website for Moshood Shoyombo, built with React, TypeScript, Vite, and Tailwind CSS. The app showcases a professional bio, skills, projects, teaching experience, certifications, recognitions, and contact details, with an interactive portfolio assistant included.
+A modern personal portfolio and profile website for Moshood Shoyombo, built with React, TypeScript, Vite, and Tailwind CSS. The app showcases a professional bio, skills, projects, teaching experience, recognitions, and contact details.
 
 ## Overview
 
@@ -48,26 +48,130 @@ The site is structured as a single-page portfolio experience with dedicated sect
 
 ```bash
 .
+├── .github/
+│   └── workflows/
+│       └── jekyll-gh-pages.yml
+├── .lovable/
+│   └── mcp/
+│       └── manifest.json
 ├── public/
+│   ├── favicon.ico
+│   ├── favicon.png
+│   ├── placeholder.svg
+│   └── robots.txt
 ├── src/
+│   ├── assets/
+│   │   ├── MoshLogo.png
+│   │   └── moshood-profile.jpg
 │   ├── components/
+│   │   ├── ai-elements/
+│   │   │   ├── conversation.tsx
+│   │   │   ├── loader.tsx
+│   │   │   ├── message.tsx
+│   │   │   └── prompt-input.tsx
+│   │   ├── ui/
+│   │   │   ├── accordion.tsx
+│   │   │   ├── alert-dialog.tsx
+│   │   │   ├── alert.tsx
+│   │   │   ├── avatar.tsx
+│   │   │   ├── badge.tsx
+│   │   │   ├── button.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── dialog.tsx
+│   │   │   ├── dropdown-menu.tsx
+│   │   │   ├── form.tsx
+│   │   │   ├── input.tsx
+│   │   │   ├── label.tsx
+│   │   │   ├── navigation-menu.tsx
+│   │   │   ├── scroll-area.tsx
+│   │   │   ├── separator.tsx
+│   │   │   ├── sheet.tsx
+│   │   │   ├── tabs.tsx
+│   │   │   ├── textarea.tsx
+│   │   │   └── ...
+│   │   ├── ContactSection.tsx
+│   │   ├── Footer.tsx
+│   │   ├── HeroSection.tsx
+│   │   ├── ImageUpload.tsx
+│   │   ├── NavLink.tsx
+│   │   ├── Navbar.tsx
+│   │   ├── PageBanner.tsx
+│   │   ├── PortfolioAssistant.tsx
+│   │   ├── ProjectsSection.tsx
+│   │   ├── ProtectedRoute.tsx
+│   │   ├── RecognitionsSection.tsx
+│   │   ├── SkillsSection.tsx
+│   │   ├── TeachingSection.tsx
+│   │   ├── ThemeProvider.tsx
+│   │   └── ThemeToggle.tsx
 │   ├── data/
+│   │   └── profileData.ts
 │   ├── hooks/
+│   │   ├── use-mobile.tsx
+│   │   ├── use-toast.ts
+│   │   └── useProfileData.ts
 │   ├── integrations/
+│   │   └── supabase/
+│   │       ├── client.ts
+│   │       ├── previewAuthStorage.ts
+│   │       └── types.ts
+│   ├── lib/
+│   │   ├── mcp/
+│   │   │   ├── index.ts
+│   │   │   └── tools/
+│   │   │       ├── get-contact.ts
+│   │   │       ├── get-profile.ts
+│   │   │       ├── list-certificates.ts
+│   │   │       └── list-projects.ts
+│   │   └── utils.ts
 │   ├── pages/
+│   │   ├── Admin.tsx
+│   │   ├── CertificatesPage.tsx
+│   │   ├── ContactPage.tsx
+│   │   ├── Index.tsx
+│   │   ├── Login.tsx
+│   │   ├── NotFound.tsx
+│   │   ├── ProjectsPage.tsx
+│   │   ├── RecognitionsPage.tsx
+│   │   ├── Signup.tsx
+│   │   ├── SkillsPage.tsx
+│   │   └── TeachingPage.tsx
+│   ├── test/
+│   │   ├── example.test.ts
+│   │   └── setup.ts
+│   ├── App.css
 │   ├── App.tsx
-│   └── main.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   └── vite-env.d.ts
+├── supabase/
+│   ├── config.toml
+│   ├── functions/
+│   │   ├── mcp/
+│   │   │   └── index.ts
+│   │   └── portfolio-chat/
+│   │       └── index.ts
+│   └── migrations/
+│       ├── 20260224222459_c7100105-a1e6-4d1d-98c3-dfa441d11d91.sql
+│       └── 20260324131941_09e6c30c-a071-40f0-b415-9cc154928f84.sql
 ├── .env
 ├── .gitignore
+├── bun.lock
 ├── components.json
 ├── eslint.config.js
 ├── index.html
+├── package-lock.json
 ├── package.json
+├── postcss.config.js
 ├── tailwind.config.ts
 ├── tsconfig.json
+├── tsconfig.app.json
+├── tsconfig.node.json
+├── vercel.json
 ├── vite.config.ts
 ├── vitest.config.ts
-└── README.md
+├── README.md
+└── .npmrc (if present in your local setup)
 ```
 
 ## Prerequisites
@@ -162,4 +266,4 @@ This project is intended for personal portfolio use and is distributed under the
 
 ## Notes
 
-This repository is primarily built with TypeScript (approximately 98% of the codebase), with supporting CSS styling and a small amount of other assets. It reflects a modern, maintainable frontend portfolio implementation for a data science, AI, and research-focused profile.
+This repository is primarily built with TypeScript (approximately 98% of the codebase), with supporting CSS styling and a small amount of other assets. It reflects a modern, maintainable frontend portfolio architecture for a personal brand website.
