@@ -1,4 +1,4 @@
-# Moshood Portfolio
+# My Portfolio
 
 A modern personal portfolio and profile website for Moshood Shoyombo, built with React, TypeScript, Vite, and Tailwind CSS. The app showcases a professional bio, skills, projects, teaching experience, recognitions, and contact details.
 
