@@ -1,6 +1,24 @@
 import { motion } from "framer-motion";
 import { ProfileData } from "@/data/profileData";
 
+export const getStatValue = (
+  label: string,
+  data: Pick<ProfileData, "projects" | "certificates" | "recognitions">,
+  fallback: string,
+) => {
+  const normalizedLabel = label.toLowerCase();
+
+  if (normalizedLabel.includes("project")) return String(data.projects.length);
+  if (normalizedLabel.includes("certification") || normalizedLabel.includes("certificate")) {
+    return String(data.certificates.length);
+  }
+  if (normalizedLabel.includes("award") || normalizedLabel.includes("recognition")) {
+    return String(data.recognitions.length);
+  }
+
+  return fallback;
+};
+
 const RecognitionsSection = ({ data }: { data: ProfileData }) => (
   <section id="recognitions" className="py-20 px-6">
     <div className="max-w-7xl mx-auto">
@@ -17,7 +35,9 @@ const RecognitionsSection = ({ data }: { data: ProfileData }) => (
             transition={{ delay: i * 0.1 }}
             className="text-center"
           >
-            <div className="text-3xl font-extrabold text-primary">{s.value}</div>
+            <div className="text-3xl font-extrabold text-primary">
+              {getStatValue(s.label, data, s.value)}
+            </div>
             <div className="text-sm text-muted-foreground">{s.label}</div>
           </motion.div>
         ))}
