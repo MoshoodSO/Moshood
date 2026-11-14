@@ -1,6 +1,6 @@
 # My Portfolio
 
-A modern personal portfolio and profile website for Moshood Shoyombo, built with React, TypeScript, Vite, and Tailwind CSS. The app showcases a professional bio, skills, projects, teaching experience, recognitions, and contact details.
+A modern personal portfolio and profile website for Moshood Shoyombo, built with React, TypeScript, Vite, and Tailwind CSS. The app showcases a professional bio, skills, projects, teaching experience, recognitions, certifications, and contact details in a polished, responsive interface.
 
 ## Overview
 
@@ -133,7 +133,6 @@ The site is structured as a single-page portfolio experience with dedicated sect
 │   │   ├── NotFound.tsx
 │   │   ├── ProjectsPage.tsx
 │   │   ├── RecognitionsPage.tsx
-│   │   ├── Signup.tsx
 │   │   ├── SkillsPage.tsx
 │   │   └── TeachingPage.tsx
 │   ├── test/
@@ -253,6 +252,14 @@ npm run lint
 
 The project is configured for modern frontend deployment and includes Vercel settings. You can deploy it to Vercel or any static hosting platform that supports Vite applications.
 
+## Repository Composition
+
+This repository is primarily TypeScript-based, with the current language distribution:
+
+- TypeScript: 98.3%
+- CSS: 1.2%
+- Other: 0.5%
+
 ## License
 
 This project is intended for personal portfolio use and is distributed under the repository's applicable license terms.
@@ -266,4 +273,4 @@ This project is intended for personal portfolio use and is distributed under the
 
 ## Notes
 
-This repository is primarily built with TypeScript (approximately 98% of the codebase), with supporting CSS styling and a small amount of other assets. It reflects a modern, maintainable frontend portfolio architecture for a personal brand website.
+This portfolio is a TypeScript-first React application with a strong frontend focus, supporting CSS styling, and a minimal amount of other code and assets. It reflects a modern, maintainable frontend architecture optimized for personal branding and portfolio presentation.
